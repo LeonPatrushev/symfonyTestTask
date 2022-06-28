@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Hello ListController!
+{% endblock %}
+{% block body %}
+	<div>
+		<form id="select_parameters" method="POST">
+			<input type="month" name="month">
+			{% for client in type_client %}
+				<label>{{client.name}}</label>
+				<input type="radio" name="select_type_client" value="{{client.id}}">
+			{% endfor %}
+			<input type="hidden" name="token" value="{{csrf_token('search-payments')}}">
+			<button type="submit" class="w-100 btn btn-lg btn-primary">Составить отчет</button>
+		</form>
+	</div>
+
+	<div id="table"></div>
+
+{% endblock %}
+{% block script %}
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+            $('#select_parameters').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                type: "POST",
+                url: '{{ path('showReport') }}',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#table').html(response);
+                    }
+                });
+            });
+        });
+	</script>
+
+{% endblock %}

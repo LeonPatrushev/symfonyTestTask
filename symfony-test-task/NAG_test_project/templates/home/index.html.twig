@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<div class="px-4 py-5 my-5 text-center">
+		<h1 class="display-5 fw-bold">Добро пожаловать!</h1>
+		<div class="col-lg-6 mx-auto">
+			<p class="lead mb-4">Приложение для создания отчетов, характеризующих движение денежных средств предприятия.</p>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+				{% if app.user %}
+					<a class="btn btn-primary btn-lg px-4 gap-3" href="{{ path('list') }}">Отчет</a>
+				{% else %}
+					<a class="btn btn-primary btn-lg px-4 gap-3" href="{{ path('app_login') }}">Login</a>
+					<a class="btn btn-outline-secondary btn-lg px-4" href="{{ path('app_register')}}">Register</a>
+				{%  endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
